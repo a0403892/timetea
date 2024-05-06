@@ -1,0 +1,109 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    margin: 0;
+    padding-top: 40px;
+}
+.top {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    background-color: rgb(224, 170, 239);
+    font-family:Microsoft JhengHei;
+    color: #393939;
+}
+.container {
+    width: 100%;
+    position: fixed;
+    background: rgb(153, 153, 153);
+}
+.slide-wrapper .btn-list {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 10px;
+    font-size: 0;
+    overflow-x: auto;
+}
+.slide-wrapper .btn-list .btn-item {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    margin: 10px auto;
+}
+.slide-wrapper .btn-list .btn-item:hover {
+    background-color: rgb(224, 170, 239);
+}
+.container2 {
+    display: flex;
+    margin-top: 115px;
+    background: rgb(181, 181, 181);
+    min-height: 477px;
+}
+.main-wrapper {
+    width: 100%;
+}
+.item-list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+.item {
+    width: 180px;
+    height: 300px;
+    background-color: #fff;
+    margin: 20px 25px;
+    padding: 10px;
+    float: left;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.item-img {
+    width: 100%;
+    object-fit: cover;  /* 保持圖片比例並填充整個容器 */
+}
+.footer-text {
+    height: 20px;
+    font-size: 14px;
+    text-align: center;
+    background-color: #aaa;
+    padding: 5px;
+    margin-bottom: 40px;
+}
+.cart {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    background-color: rgb(224, 170, 239);
+    font-family:Microsoft JhengHei;
+    color: #393939;
+    display: flex;
+    justify-content: space-between; /* 使cart依父層平均分配寬度，需先設定display flex */
+}
+.cart>button {
+    padding-right: 10px; /* 最右邊的購物車按鈕不知道為什麼被畫面切掉了，拉回來10px */
+}
+/* 隱藏彈出視窗 */
+#drinkModel {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #000000;
+    z-index: 2;
+}

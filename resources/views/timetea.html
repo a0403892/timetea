@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">    
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="top">
+        食光茶旅輕食早午餐-總店
+    </div>
+    <div class="container">
+        <div class="slide-wrapper">
+            <div class="btn-list">
+                <button class="btn-item" onclick="showMain('main01')">推薦商品</button>
+                <button class="btn-item">茶茶手沖</button>
+                <button class="btn-item">研磨咖啡</button>
+                <button class="btn-item" onclick="showMain('main04')">食光、飲品</button>
+                <button class="btn-item">食光經典套餐</button>
+                <button class="btn-item">飯麵主食套餐</button>
+                <button class="btn-item">麵包系列</button>
+                <button class="btn-item">香煎蛋餅</button>
+                <button class="btn-item">豐盛總匯</button>
+                <button class="btn-item">中式餐點</button>
+                <button class="btn-item">鐵板麵、烏龍麵</button>
+                <button class="btn-item">甜蜜果醬</button>
+                <button class="btn-item">鬆餅時光</button>
+                <button class="btn-item">點心時光</button>
+                <button class="btn-item">沙拉湯品</button>
+                <button class="btn-item">重要公告</button>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div class="main-wrapper">
+            <div class="item-list" id="item-list">
+                <div class="item" onclick="showDrinkOptions('紅茶')">
+                    <img src="null.jpg" alt="" class="item-img">
+                    <h2>豆漿咖啡</h2>
+                    <div class="st">
+                        <h5>尚餘：99份</h5>
+                        <h5>$50</h5>
+                    </div>
+                </div>
+                <div class="item" onclick="showDrinkOptions('綠茶')">
+                    <img src="null.jpg" alt="" class="item-img">
+                    <h2>本月公休3/1~3/3、13、24~25，共6天</h2>
+                    <h5>尚餘：99份</h5>
+                    <h5>$9999</h5>
+                </div>
+                <div class="item" onclick="showDrinkOptions('咖啡')">
+                    <img src="null.jpg" alt="" class="item-img">
+                    <h2>因應物價上漲，部分商品調漲5元</h2>
+                    <h5>尚餘：99份</h5>
+                    <h5>$9999</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 彈出視窗 -->
+    <div id="drinkModel">
+        <h2 id="drinkTitle"></h2>
+        <label>冰熱：</label>
+        <input type="radio" id="normalIce" name="temperature" value="正常" checked>
+        <label for="ice">正常</label>
+        <input type="radio" id="halfIce" name="temperature" value="少冰">
+        <label for="ice">少冰</label>
+        <input type="radio" id="littleIce" name="temperature" value="微冰">
+        <label for="ice">微冰</label>
+        <input type="radio" id="noIce" name="temperature" value="去冰">
+        <label for="hot">去冰</label><br>
+        <input type="radio" id="warm" name="temperature" value="溫">
+        <label for="ice">溫</label>
+        <input type="radio" id="hot" name="temperature" value="熱">
+        <label for="ice">熱</label>
+        <br>
+        <div id="sweetnessOptions" class="hidden">
+            <label>甜度：</label>
+            <input type="radio" id="zeroSugar" name="sweetness" value="無糖" checked>
+            <label for="zeroSugar">無糖</label>
+            <input type="radio" id="halfSugar" name="sweetness" value="半糖">
+            <label for="halfSugar">半糖</label>
+            <input type="radio" id="normalSugar" name="sweetness" value="正常">
+            <label for="normalSugar">正常</label>
+        </div>
+
+        <label for="quantity">數量：</label>
+        <input type="number" id="quantity" value="1" min="1"><br>
+        <button onclick="addToCart()">加入購物車</button>
+        <button onclick="hideModel()">關閉</button>
+    </div>
+
+    <div class="footer">
+        <div class="footer-text">
+            <p>本網站僅為個人練習作品，請勿用於商業行為 © 2024</p>
+        </div>
+        <div class="cart">
+            <p>購物車：1項商品</p>
+            <button>購物車</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    function showMain(mainPage) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://127.0.0.1:8000/'+mainPage);
+        xhr.onload = function() { // 觸發load事件，連線完成
+            var itemList = document.getElementById('item-list'); // 取得item-list這個div存進itemList變數
+            itemList.innerHTML = this.responseText; // 將itemLst資料加進HTML區塊
+        }
+        xhr.send();
+    }
+    // function showDrinkModel() {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('get', 'http://127.0.0.1:8000/drinkModel');
+    //     xhr.onload = function() { // 觸發load事件，連線完成
+    //         var drinkModel = document.getElementById('drinkModel'); 
+    //         drinkModel.innerHTML = this.responseText; 
+    //     }
+    //     xhr.send();
+    // }
+    function showDrinkOptions(drinkName) {
+        document.getElementById('drinkTitle').innerText = drinkName;
+        document.getElementById('drinkModel').style.display = 'block';
+        var sweetnessOptions = document.getElementById('sweetnessOptions');
+        // 當選擇的飲料是咖啡時，設定 display 為 'block'（顯示），否則設定為 'none'（隱藏）
+        sweetnessOptions.style.display = (drinkName === '咖啡') ? 'block' : 'none';
+    }
+
+    function hideModel() {
+        document.getElementById('drinkModel').style.display = 'none';
+    }
+    function addToCart() {
+        // 在這裡處理加入購物車的邏輯
+        // 可以獲取選擇的飲料、冰熱、數量，然後執行相應的動作
+        hideModel();
+    }
+
+</script>
+
+</html>

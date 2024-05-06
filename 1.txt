@@ -1,0 +1,107 @@
+<script>
+    // 存儲購物車中的商品
+    var cart = [];
+
+    // 將商品添加到購物車中
+    function addToCart01(itemName, quantity, price, optionname) {
+        // 獲取所有溫度或甜度選項的值
+        var tempValues = document.querySelectorAll('input[name^="temp"]');
+        var selected = false;
+        var selectedTemp = null;
+
+        // 檢查是否有選擇溫度或甜度
+        tempValues.forEach(function(temp) {
+            if (temp.checked) {
+                selected = true;
+                selectedTemp = temp.value;
+            }
+        });
+
+        // 如果沒有選擇溫度或甜度，顯示警告消息
+        if (!selected) {
+            alert('請選擇' + optionname);
+            return; // 不執行加到購物車的操作
+        }
+
+        // 將商品添加到購物車中
+        var item = { name: itemName, quantity: quantity, price: price, temp: selectedTemp};
+        cart.push(item);
+        hideModel01();
+        updateCartView();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    // 存儲購物車中的商品
+    var cart = [];
+
+    // 將商品添加到購物車中
+    function addToCart01(itemName, quantity, price, optionname) {
+        // 檢查選擇的溫度或甜度
+        var selectedMarks = getSelectedMarks();
+        for (var i = 0; i < selectedMarks.length; i++) {
+            if (selectedMarks[i] === null || selectedMarks[i] === undefined) {
+                alert('請選擇' + optionname[i]);
+                return; // 不執行加到購物車的操作
+            }
+        }
+
+        // 此處執行加入購物車的操作
+        hideModel01();
+        updateCartView();
+    }    
+
+    // 獲取選擇的溫度或甜度
+    function getSelectedMarks() {
+        var selectedMarks = [];
+        var optionCount = <?php echo count($optionData); ?>;
+        for (var i = 1; i <= optionCount; i++) {
+            var radios = document.getElementsByName('temp' + i);
+            var temp = null;
+            for (var j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    temp = radios[j].value;
+                    break;
+                }
+            }
+            selectedMarks.push(temp);
+        }
+        return selectedMarks;
+    }
+</script>

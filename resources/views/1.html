@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="cartwrapper">
+        <div id="cartItems">
+            <button class="closecart" onclick="hideCart()">Ｘ</button>
+            <h2>購物車商品清單</h2>
+            <div id="cartItem">
+                <div class="item">商品一 價格：$100 數量：2</div>
+                <div class="item">商品二 價格：$50 數量：1</div>
+                <div class="item">商品三 價格：$100 數量：3</div>
+                <div class="item">商品四 價格：$200 數量：1</div>
+                <div class="total">總價：$750</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+// 在每個商品項目後面新增一個刪除按鈕
+var items = document.querySelectorAll('.item');
+items.forEach(function(item) {
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = '刪除';
+    deleteButton.classList.add('delete-item');
+    deleteButton.onclick = function() {
+        // 刪除該商品項目
+        item.parentNode.removeChild(item);
+        // 更新總價
+        updateTotal();
+    };
+    item.appendChild(deleteButton);
+});
+
+// 更新總價的函數
+function updateTotal() {
+    var totalPrice = 0;
+    var itemPrices = document.querySelectorAll('.item');
+    itemPrices.forEach(function(item) {
+        var price = item.textContent.match(/\$[0-9]+/);
+        var quantity = item.textContent.match(/數量：[0-9]+/);
+        if (price && quantity) {
+            price = parseFloat(price[0].substring(1));
+            quantity = parseInt(quantity[0].substring(3));
+            totalPrice += price * quantity;
+        }
+    });
+    // 更新總價的顯示
+    var totalElement = document.querySelector('.total');
+    totalElement.textContent = '總價：$' + totalPrice;
+}
+
+</script>
+</html>
